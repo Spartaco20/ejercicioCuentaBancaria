@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cuenta Bancaria</title>
+        
+        <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+     
+        <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+
+        <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    </h:head>
+    <h:body>
+        <div class="container">
+        <!-- Page Content goes here -->
+            <div class="row">
+                <div class="col s6">
+                    <h:form>
+                        <label for=""><h2>Cuenta Bancaria</h2></label>
+                        
+                        <h:inputText id="titular" maxlength="25" value="#{procesoCuenta.pf.titular}" style="padding-top: 50px;" class="validate"/>
+                        <label for="titular">Titular de la cuenta</label>
+                        
+                        <h:inputText id="cantidad" maxlength="8" value="#{procesoCuenta.pf.cantidad}" style="padding-top: 30px;" class="validate"/>
+                        <label for="cantidad">Ingrese un monto</label>
+                        <br></br>
+                        
+                        <div class="browser-default col s9" style="padding-top: 40px;">
+                            <h:selectOneMenu value="#{procesoCuenta.pf.plazo}" class="browser-default">
+                                <f:selectItem itemValue="1" itemLabel="1 cuota" />
+                                <f:selectItem itemValue="2" itemLabel="2 cuotas" />
+                                <f:selectItem itemValue="3" itemLabel="3 cuotas" />
+                                <f:selectItem itemValue="4" itemLabel="4 cuotas" />
+                            </h:selectOneMenu>
+                        <label for="plazo">Seleccione Plazo (Cuotas)</label>
+                        </div>
+                        <br></br>
+                        
+                        <div style="padding-top: 40px;" class="row">
+                            <h:commandButton style="font-size: 15px; margin: 40px;" action="#{procesoCuenta.calculoInteres()}" value="Calcular Interes" class="waves-effect teal lighten-3 btn-large"></h:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col s9" style="margin-top: 5px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Titular Cuenta</th>
+                                <th>Cantidad</th>
+                                <th>Plazo (Cuotas)</th>
+                                <th>% de Interés</th>
+                                <th>Valor Interés</th>
+                                <th>Valor Total</th>
+                            </tr>
+                        </thead>
+                        <c:forEach items="#{procesoCuenta.listaIntereses}" var="obl">
+                            <tr>
+                                <td>#{obl.titular}</td>
+                                <td>#{obl.cantidad}</td>
+                                <td>#{obl.plazo}</td>
+                                <td>#{obl.valorInteres}</td>
+                                <td>#{obl.interes}</td>
+                                <td>#{obl.valorTotal}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+
